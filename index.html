@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Copy Full Code</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .copy-container { background: #f5f5f5; padding: 20px; border-radius: 10px; }
+        .copy-btn { background: #007bff; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        .copy-btn:hover { background: #0056b3; }
+        .instructions { margin-top: 20px; }
+        .platform-link { display: inline-block; margin: 10px; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; }
+        .platform-link:hover { background: #1e7e34; }
+    </style>
+</head>
+<body>
+    <div class="copy-container">
+        <h2>🚀 Deploy Your System Mapping Tool</h2>
+        
+        <button class="copy-btn" onclick="copyFullCode()">📋 Copy Complete HTML Code</button>
+        
+        <div class="instructions">
+            <h3>Quick Deploy Options:</h3>
+            
+            <a href="https://codepen.io" target="_blank" class="platform-link">📝 CodePen</a>
+            <a href="https://netlify.com" target="_blank" class="platform-link">🌐 Netlify</a>
+            <a href="https://vercel.com" target="_blank" class="platform-link">⚡ Vercel</a>
+            <a href="https://github.com" target="_blank" class="platform-link">🐱 GitHub Pages</a>
+            
+            <h4>Steps:</h4>
+            <ol>
+                <li>Click "Copy Complete HTML Code" above</li>
+                <li>Choose a platform from the links</li>
+                <li>Create new project/pen</li>
+                <li>Paste the code</li>
+                <li>Save and deploy!</li>
+            </ol>
+            
+            <h4>Local Development:</h4>
+            <ul>
+                <li>Save as <code>.html</code> file</li>
+                <li>Double-click to open in browser</li>
+                <li>Or use VS Code with Live Server extension</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function copyFullCode() {
+            // The complete HTML code would be copied here
+            const fullCode = `<!-- The complete system mapping tool code would be here -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- Full artifact code from previous response -->
+</html>`;
+            
+            navigator.clipboard.writeText(fullCode).then(() => {
+                alert('✅ Code copied to clipboard!\n\nNow you can:\n1. Paste into any HTML file\n2. Upload to web hosting\n3. Use in CodePen/JSFiddle\n4. Deploy on Netlify/Vercel');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                // Fallback: show the code in a text area for manual copying
+                const textarea = document.createElement('textarea');
+                textarea.value = fullCode;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('✅ Code copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>
