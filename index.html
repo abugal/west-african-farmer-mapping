@@ -1,72 +1,1348 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Copy Full Code</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Mapping for West African Smallholder Farmers - SMA Implementation</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .copy-container { background: #f5f5f5; padding: 20px; border-radius: 10px; }
-        .copy-btn { background: #007bff; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-        .copy-btn:hover { background: #0056b3; }
-        .instructions { margin-top: 20px; }
-        .platform-link { display: inline-block; margin: 10px; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; }
-        .platform-link:hover { background: #1e7e34; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #4a69bd 0%, #1e3799 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2C5530 0%, #5D8B63 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .research-context {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .research-context h3 {
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 800px;
+        }
+
+        .sidebar {
+            background: #f8f9fa;
+            border-right: 3px solid #dee2e6;
+            padding: 30px;
+        }
+
+        .phase-nav {
+            list-style: none;
+        }
+
+        .phase-nav li {
+            margin-bottom: 15px;
+        }
+
+        .phase-link {
+            display: block;
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #6c757d;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .phase-link:hover, .phase-link.active {
+            background: #2C5530;
+            color: white;
+            border-color: #2C5530;
+            transform: translateX(5px);
+        }
+
+        .content-area {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .phase-content {
+            display: none;
+        }
+
+        .phase-content.active {
+            display: block;
+        }
+
+        .phase-header {
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .phase-header h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .template-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2C5530;
+        }
+
+        .template-title {
+            font-size: 1.6em;
+            color: #2C5530;
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .variables-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .variable-cluster {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .variable-cluster::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4);
+        }
+
+        .variable-cluster:hover {
+            border-color: #2C5530;
+            box-shadow: 0 10px 25px rgba(44, 85, 48, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .cluster-title {
+            font-weight: 700;
+            color: #2C5530;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .variable-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+
+        .variable-input:focus {
+            border-color: #2C5530;
+            box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+            outline: none;
+        }
+
+        .mapping-canvas {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 3px dashed #dee2e6;
+            border-radius: 20px;
+            min-height: 600px;
+            margin: 30px 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            overflow: hidden;
+        }
+
+        .mapping-canvas::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(44, 85, 48, 0.05) 0%, transparent 70%);
+        }
+
+        .canvas-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .system-visual {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .system-node {
+            background: white;
+            border: 3px solid #2C5530;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 700;
+            color: #2C5530;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .system-node:hover {
+            background: #2C5530;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .connection-arrow {
+            position: absolute;
+            top: 50%;
+            right: -40px;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #FF6B6B;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .feedback-loops-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .feedback-loop-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #FFD700;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-loop-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(10px);
+        }
+
+        .stakeholder-ecosystem {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .stakeholder-group {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .stakeholder-group::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4);
+            border-radius: 15px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stakeholder-group:hover::before {
+            opacity: 1;
+        }
+
+        .stakeholder-group:hover {
+            transform: translateY(-5px);
+        }
+
+        .stakeholder-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .leverage-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .leverage-point {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leverage-point::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+        }
+
+        .leverage-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .workshop-template {
+            background: linear-gradient(135deg, #FF9A56 0%, #FF6B6B 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .workshop-phase {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .cultural-integration {
+            background: linear-gradient(135deg, #8e44ad 0%, #3742fa 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #FFD700;
+        }
+
+        .validation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .validation-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .validation-card:hover {
+            border-color: #2C5530;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .validation-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #2C5530 0%, #5D8B63 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(44, 85, 48, 0.3);
+        }
+
+        .progress-tracker {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-weight: 700;
+            color: #2C5530;
+            z-index: 1000;
+        }
+
+        .research-positioning {
+            background: linear-gradient(135deg, #2C5530 0%, #5D8B63 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid #dee2e6;
+            }
+            
+            .phase-nav {
+                display: flex;
+                gap: 10px;
+                overflow-x: auto;
+            }
+            
+            .phase-nav li {
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .variables-matrix {
+                grid-template-columns: 1fr;
+            }
+            
+            .system-visual {
+                grid-template-columns: 1fr;
+            }
+            
+            .validation-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="copy-container">
-        <h2>🚀 Deploy Your System Mapping Tool</h2>
-        
-        <button class="copy-btn" onclick="copyFullCode()">📋 Copy Complete HTML Code</button>
-        
-        <div class="instructions">
-            <h3>Quick Deploy Options:</h3>
-            
-            <a href="https://codepen.io" target="_blank" class="platform-link">📝 CodePen</a>
-            <a href="https://netlify.com" target="_blank" class="platform-link">🌐 Netlify</a>
-            <a href="https://vercel.com" target="_blank" class="platform-link">⚡ Vercel</a>
-            <a href="https://github.com" target="_blank" class="platform-link">🐱 GitHub Pages</a>
-            
-            <h4>Steps:</h4>
-            <ol>
-                <li>Click "Copy Complete HTML Code" above</li>
-                <li>Choose a platform from the links</li>
-                <li>Create new project/pen</li>
-                <li>Paste the code</li>
-                <li>Save and deploy!</li>
-            </ol>
-            
-            <h4>Local Development:</h4>
-            <ul>
-                <li>Save as <code>.html</code> file</li>
-                <li>Double-click to open in browser</li>
-                <li>Or use VS Code with Live Server extension</li>
-            </ul>
+    <div class="container">
+        <div class="header">
+            <h1>System Mapping for Agricultural Transformation</h1>
+            <p>From Farm Isolation to Shared Success: Designing Collaborative Innovation Networks</p>
+            <div class="research-context">
+                <h3>🌍 Research Context</h3>
+                <p><strong>Geographic Scope:</strong> Nigeria, Ghana, Senegal | <strong>Cultural Perspective:</strong> 30+ years farming experience + Fulani herding heritage</p>
+                <p><strong>System Challenge:</strong> 80% of workforce producing only 40% of output due to systematic farmer isolation</p>
+            </div>
+        </div>
+
+        <div class="progress-tracker" id="progressTracker">
+            Step 1
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <ul class="phase-nav">
+                    <li><a href="#" class="phase-link active" data-phase="frame">1. FRAME</a></li>
+                    <li><a href="#" class="phase-link" data-phase="explore">2. EXPLORE</a></li>
+                    <li><a href="#" class="phase-link" data-phase="map">3. MAP</a></li>
+                    <li><a href="#" class="phase-link" data-phase="reflect">4. REFLECT</a></li>
+                    <li><a href="#" class="phase-link" data-phase="leverage">5. LEVERAGE</a></li>
+                </ul>
+            </div>
+
+            <div class="content-area">
+                <!-- FRAME PHASE -->
+                <div id="frame" class="phase-content active">
+                    <div class="phase-header">
+                        <h2>🎯 FRAME: Problem Definition</h2>
+                        <p>Establish clear research boundaries and system scope for West African farmer transformation</p>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">📋 Research Question Framework</div>
+                        <textarea class="variable-input" style="height: 100px;" placeholder="Core Research Question: How can collaborative innovation networks systematically integrate digital technologies with indigenous knowledge to transform isolated West African smallholder farmers into connected, empowered agricultural innovators?"></textarea>
+                        
+                        <div class="cultural-integration">
+                            <h3>🌾 Cultural Context Integration</h3>
+                            <p><strong>Fulani Herding Heritage Insights:</strong> How does your 30+ years of farming experience and traditional knowledge inform this system challenge?</p>
+                            <textarea class="variable-input" placeholder="Traditional knowledge systems, community collaboration patterns, trust-building mechanisms, seasonal coordination practices..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">🎯 System Boundaries Definition</div>
+                        <div class="variables-matrix">
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Geographic Boundaries</div>
+                                <input type="text" class="variable-input" value="Nigeria, Ghana, Senegal" placeholder="Target countries/regions">
+                                <textarea class="variable-input" placeholder="Specific agricultural zones, climate conditions, cultural contexts..."></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Stakeholder Scope</div>
+                                <textarea class="variable-input" placeholder="Primary: Smallholder farmers, Agricultural cooperatives
+Secondary: NGOs, Government agencies, Private sector
+Tertiary: Research institutions, International organizations"></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Temporal Boundaries</div>
+                                <input type="text" class="variable-input" placeholder="Current state: 2025">
+                                <input type="text" class="variable-input" placeholder="Vision timeframe: 2030-2035">
+                                <textarea class="variable-input" placeholder="Historical context: Past intervention attempts, traditional practices evolution..."></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Thematic Focus Areas</div>
+                                <textarea class="variable-input" placeholder="• Digital technology integration
+• Indigenous knowledge preservation
+• Collaborative innovation processes
+• Market access improvement
+• Resource sharing mechanisms"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">⚡ Central Problem Statement</div>
+                        <div class="mapping-canvas">
+                            <div class="canvas-content">
+                                <h3>The Isolation Paradox</h3>
+                                <textarea class="variable-input" style="width: 80%; height: 120px;" placeholder="West African smallholder farmers face systematic isolation that prevents effective collaboration, knowledge sharing, and resource access. Despite available digital technologies and rich indigenous knowledge systems, farmers remain disconnected from innovation networks, limiting agricultural transformation potential and perpetuating the productivity gap (80% workforce, 40% output)."></textarea>
+                                
+                                <div class="system-visual">
+                                    <div class="system-node">
+                                        Isolated<br>Farmers
+                                        <div class="connection-arrow">→</div>
+                                    </div>
+                                    <div class="system-node">
+                                        Limited<br>Collaboration
+                                        <div class="connection-arrow">→</div>
+                                    </div>
+                                    <div class="system-node">
+                                        Missed<br>Opportunities
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPLORE PHASE -->
+                <div id="explore" class="phase-content">
+                    <div class="phase-header">
+                        <h2>🔍 EXPLORE: System Variables Collection</h2>
+                        <p>Identify and categorize key forces driving farmer isolation in West Africa</p>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">🎭 Primary System Variables (Nouns)</div>
+                        <div class="variables-matrix">
+                            <div class="variable-cluster">
+                                <div class="cluster-title">👨‍🌾 Farmer-Level Variables</div>
+                                <textarea class="variable-input" placeholder="• Smallholder farmers (80% of workforce)
+• Traditional knowledge holders
+• Resource constraints (land, capital, tools)
+• Risk aversion and uncertainty
+• Social networks and trust levels
+• Digital literacy levels
+• Age and gender demographics"></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">📱 Technology Variables</div>
+                                <textarea class="variable-input" placeholder="• Digital technologies availability
+• Mobile phone penetration
+• Internet connectivity access
+• Agricultural applications and platforms
+• Data collection and analysis tools
+• Communication technologies
+• Technology adoption barriers"></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">🧠 Knowledge Systems</div>
+                                <textarea class="variable-input" placeholder="• Indigenous agricultural knowledge
+• Traditional farming practices
+• Fulani herding knowledge systems
+• Extension service approaches
+• Research institution outputs
+• Knowledge sharing platforms
+• Intergenerational knowledge transfer"></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">🏛️ Institutional Variables</div>
+                                <textarea class="variable-input" placeholder="• Agricultural cooperatives effectiveness
+• Government policy frameworks
+• NGO intervention approaches
+• Financial institution accessibility
+• Market intermediary systems
+• Land tenure security
+• Regulatory environments"></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">💰 Economic Variables</div>
+                                <textarea class="variable-input" placeholder="• Market access and reach
+• Credit availability and terms
+• Input cost fluctuations
+• Price volatility and predictability
+• Value chain integration
+• Income diversification options
+• Economic resilience factors"></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">👥 Social Variables</div>
+                                <textarea class="variable-input" placeholder="• Social capital and trust networks
+• Community leadership structures
+• Gender dynamics and roles
+• Youth engagement and migration
+• Cultural norms and practices
+• Collective action capacity
+• Social cohesion levels"></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">🌍 Environmental Variables</div>
+                                <textarea class="variable-input" placeholder="• Climate variability and change
+• Soil health and degradation
+• Water availability and management
+• Biodiversity conservation needs
+• Sustainable practice adoption
+• Environmental knowledge systems
+• Ecosystem service valuation"></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">🔗 Innovation Variables</div>
+                                <textarea class="variable-input" placeholder="• Innovation network density
+• Collaborative innovation processes
+• Knowledge integration mechanisms
+• Technology-tradition synthesis
+• Innovation diffusion pathways
+• Creative problem-solving capacity
+• Adaptive management systems"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">👥 Multi-Stakeholder Perspectives</div>
+                        <div class="stakeholder-ecosystem">
+                            <div class="stakeholder-group">
+                                <span class="stakeholder-icon">👨‍🌾</span>
+                                <h3>Farmer Perspective</h3>
+                                <textarea class="variable-input" placeholder="Challenges: Limited information access, market uncertainty, technology fears, resource constraints
+Needs: Reliable income, risk reduction, practical knowledge, community support
+Assets: Traditional knowledge, local networks, adaptive capacity"></textarea>
+                            </div>
+                            <div class="stakeholder-group">
+                                <span class="stakeholder-icon">🏛️</span>
+                                <h3>Government Perspective</h3>
+                                <textarea class="variable-input" placeholder="Challenges: Limited resources, implementation gaps, coordination difficulties
+Goals: Agricultural productivity, food security, rural development, economic growth
+Constraints: Budget limitations, capacity gaps, political pressures"></textarea>
+                            </div>
+                            <div class="stakeholder-group">
+                                <span class="stakeholder-icon">🤝</span>
+                                <h3>NGO Perspective</h3>
+                                <textarea class="variable-input" placeholder="Challenges: Fragmented interventions, sustainability issues, limited coordination
+Approaches: Capacity building, technology transfer, community mobilization
+Concerns: Impact measurement, donor requirements, local ownership"></textarea>
+                            </div>
+                            <div class="stakeholder-group">
+                                <span class="stakeholder-icon">🏢</span>
+                                <h3>Private Sector Perspective</h3>
+                                <textarea class="variable-input" placeholder="Challenges: Market fragmentation, low purchasing power, distribution costs
+Opportunities: Technology solutions, value chain integration, market development
+Barriers: Risk perception, regulatory uncertainty, infrastructure gaps"></textarea>
+                            </div>
+                            <div class="stakeholder-group">
+                                <span class="stakeholder-icon">🎓</span>
+                                <h3>Research Perspective</h3>
+                                <textarea class="variable-input" placeholder="Focus: Evidence generation, innovation development, knowledge creation
+Challenges: Research-practice gaps, funding limitations, dissemination barriers
+Opportunities: Collaborative research, participatory approaches, impact scaling"></textarea>
+                            </div>
+                            <div class="stakeholder-group">
+                                <span class="stakeholder-icon">👥</span>
+                                <h3>Community Leaders</h3>
+                                <textarea class="variable-input" placeholder="Role: Traditional governance, conflict resolution, cultural preservation
+Influence: Social legitimacy, network access, decision-making authority
+Concerns: Cultural continuity, community welfare, external intervention impacts"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAP PHASE -->
+                <div id="map" class="phase-content">
+                    <div class="phase-header">
+                        <h2>🗺️ MAP: System Relationships</h2>
+                        <p>Visualize causal connections and identify reinforcing feedback loops</p>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">🔗 Key Causal Connections (Variables → Variables)</div>
+                        <div class="variables-matrix">
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Farmer Isolation → Information Gaps</div>
+                                <input type="text" class="variable-input" value="Polarity: +" placeholder="Relationship polarity">
+                                <textarea class="variable-input" placeholder="Description: Physical and social isolation prevents farmers from accessing timely agricultural information, weather forecasts, market prices, and best practices, leading to suboptimal decision-making."></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Limited Collaboration → Weak Bargaining Power</div>
+                                <input type="text" class="variable-input" value="Polarity: +" placeholder="Relationship polarity">
+                                <textarea class="variable-input" placeholder="Description: Individual farmers cannot negotiate effectively with buyers, input suppliers, or financial institutions, resulting in unfavorable terms and reduced profitability."></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Digital Illiteracy → Technology Underutilization</div>
+                                <input type="text" class="variable-input" value="Polarity: +" placeholder="Relationship polarity">
+                                <textarea class="variable-input" placeholder="Description: Low digital skills prevent farmers from effectively using available mobile apps, online platforms, and digital tools that could improve their farming practices and market access."></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Knowledge Isolation → Innovation Stagnation</div>
+                                <input type="text" class="variable-input" value="Polarity: +" placeholder="Relationship polarity">
+                                <textarea class="variable-input" placeholder="Description: Traditional knowledge remains localized and cannot be systematically integrated with modern innovations, preventing the development of hybrid solutions."></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Poor Coordination → Resource Waste</div>
+                                <input type="text" class="variable-input" value="Polarity: +" placeholder="Relationship polarity">
+                                <textarea class="variable-input" placeholder="Description: Multiple NGOs and agencies working in isolation leads to duplicated efforts, conflicting messages, and inefficient resource allocation in agricultural development."></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Low Trust → Reduced Cooperation</div>
+                                <input type="text" class="variable-input" value="Polarity: +" placeholder="Relationship polarity">
+                                <textarea class="variable-input" placeholder="Description: Past failed interventions and broken promises reduce farmer willingness to participate in new collaborative initiatives or technology adoption programs."></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Resource Constraints → Risk Aversion</div>
+                                <input type="text" class="variable-input" value="Polarity: +" placeholder="Relationship polarity">
+                                <textarea class="variable-input" placeholder="Description: Limited financial resources make farmers more conservative in decision-making, reducing willingness to experiment with new practices or technologies."></textarea>
+                            </div>
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Market Intermediaries → Price Exploitation</div>
+                                <input type="text" class="variable-input" value="Polarity: +" placeholder="Relationship polarity">
+                                <textarea class="variable-input" placeholder="Description: Dependence on middlemen for market access results in farmers receiving lower prices for their produce while paying higher prices for inputs."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">🌀 Reinforcing Feedback Loops</div>
+                        <div class="feedback-loops-section">
+                            <div class="feedback-loop-item">
+                                <strong>R1: The Isolation Reinforcement Loop</strong><br>
+                                <em>Farmer Isolation → Limited Information → Poor Decisions → Lower Income → Reduced Resources → Increased Isolation</em>
+                                <br><br>
+                                <textarea class="variable-input" placeholder="Description: Isolated farmers make suboptimal decisions due to lack of information, leading to poor harvests and reduced income, which further limits their ability to invest in connectivity and collaboration."></textarea>
+                            </div>
+                            
+                            <div class="feedback-loop-item">
+                                <strong>R2: The Technology Avoidance Loop</strong><br>
+                                <em>Low Digital Literacy → Technology Fear → Avoided Adoption → Missed Benefits → Continued Skepticism → Low Digital Literacy</em>
+                                <br><br>
+                                <textarea class="variable-input" placeholder="Description: Farmers with limited digital skills fear new technologies, avoid adoption, miss productivity benefits, and become more skeptical of future technological solutions."></textarea>
+                            </div>
+                            
+                            <div class="feedback-loop-item">
+                                <strong>R3: The Weak Collective Action Loop</strong><br>
+                                <em>Individual Focus → Poor Collaboration → Weak Institutions → Limited Support → Individual Focus</em>
+                                <br><br>
+                                <textarea class="variable-input" placeholder="Description: Farmers working individually cannot build strong cooperatives, which reduces institutional support and reinforces individualistic approaches to agriculture."></textarea>
+                            </div>
+                            
+                            <div class="feedback-loop-item">
+                                <strong>R4: The Knowledge Stagnation Loop</strong><br>
+                                <em>Knowledge Isolation → Limited Innovation → Poor Results → Resistance to Change → Knowledge Isolation</em>
+                                <br><br>
+                                <textarea class="variable-input" placeholder="Description: Isolated traditional knowledge systems cannot integrate with modern innovations, leading to poor results and increased resistance to new ideas."></textarea>
+                            </div>
+                            
+                            <div class="feedback-loop-item">
+                                <strong>R5: The Trust Erosion Loop</strong><br>
+                                <em>Failed Interventions → Reduced Trust → Lower Participation → Poor Outcomes → Failed Interventions</em>
+                                <br><br>
+                                <textarea class="variable-input" placeholder="Description: Past development failures reduce farmer trust, leading to lower participation in new programs, which increases failure rates and further erodes trust."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">🎨 Visual System Map Canvas</div>
+                        <div class="mapping-canvas">
+                            <div class="canvas-content">
+                                <h3>System Map: Current Problem State</h3>
+                                <p>Create your visual representation showing the relationships between variables and feedback loops</p>
+                                
+                                <div class="system-visual">
+                                    <div class="system-node" style="background: #FF6B6B; color: white;">
+                                        Farmer<br>Isolation
+                                        <div class="connection-arrow">→</div>
+                                    </div>
+                                    <div class="system-node" style="background: #4ECDC4; color: white;">
+                                        Poor<br>Collaboration
+                                        <div class="connection-arrow">→</div>
+                                    </div>
+                                    <div class="system-node" style="background: #45B7D1; color: white;">
+                                        Limited<br>Innovation
+                                    </div>
+                                    
+                                    <div class="system-node" style="background: #96CEB4; color: white;">
+                                        Underutilized<br>Technology
+                                        <div class="connection-arrow">↑</div>
+                                    </div>
+                                    <div class="system-node" style="background: #FFEAA7; color: #333;">
+                                        Agricultural<br>Stagnation
+                                    </div>
+                                    <div class="system-node" style="background: #DDA0DD; color: white;">
+                                        Isolated<br>Knowledge
+                                        <div class="connection-arrow">↓</div>
+                                    </div>
+                                    
+                                    <div class="system-node" style="background: #98D8C8; color: white;">
+                                        Weak<br>Institutions
+                                        <div class="connection-arrow">←</div>
+                                    </div>
+                                    <div class="system-node" style="background: #F7DC6F; color: #333;">
+                                        Market<br>Failures
+                                        <div class="connection-arrow">←</div>
+                                    </div>
+                                    <div class="system-node" style="background: #BB8FCE; color: white;">
+                                        Low<br>Productivity
+                                    </div>
+                                </div>
+                                
+                                <button class="btn" onclick="launchDigitalMapping()">Launch Digital Mapping Tool</button>
+                                <button class="btn" onclick="exportSystemMap()">Export System Map</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REFLECT PHASE -->
+                <div id="reflect" class="phase-content">
+                    <div class="phase-header">
+                        <h2>🤔 REFLECT: Map Validation</h2>
+                        <p>Apply SMA validation criteria and gather stakeholder feedback</p>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">✅ SMA Validation Framework</div>
+                        <div class="validation-grid">
+                            <div class="validation-card">
+                                <span class="validation-icon">📊</span>
+                                <h3>Correspondence</h3>
+                                <p><strong>Question:</strong> Does the map structure explain observable farmer behavior and system outcomes?</p>
+                                <textarea class="variable-input" placeholder="Evidence Analysis:
+• 80% workforce, 40% output gap
+• Low technology adoption rates
+• Weak cooperative performance
+• Persistent poverty cycles
+• Limited innovation diffusion
+
+Data Sources: Agricultural surveys, productivity statistics, technology adoption studies, cooperative assessments"></textarea>
+                            </div>
+                            
+                            <div class="validation-card">
+                                <span class="validation-icon">🔬</span>
+                                <h3>Coherence</h3>
+                                <p><strong>Question:</strong> Does the map align with agricultural development research and systems theory?</p>
+                                <textarea class="variable-input" placeholder="Scientific Alignment:
+• Network theory and social capital research
+• Technology adoption and diffusion models
+• Collective action and cooperation theory
+• Indigenous knowledge integration studies
+• Systems thinking and complexity science
+
+Academic References: Rogers' diffusion theory, Ostrom's collective action principles, social network analysis literature"></textarea>
+                            </div>
+                            
+                            <div class="validation-card">
+                                <span class="validation-icon">🤝</span>
+                                <h3>Consensus</h3>
+                                <p><strong>Question:</strong> Do stakeholders across Nigeria, Ghana, and Senegal agree with this representation?</p>
+                                <textarea class="variable-input" placeholder="Stakeholder Validation Process:
+• Farmer focus groups (20-60 participants per country)
+• NGO partner consultations
+• Government agency feedback sessions
+• Academic peer review
+• Community leader validation
+
+Cultural Sensitivity: Integration of Fulani herding knowledge, respect for traditional governance, language considerations"></textarea>
+                            </div>
+                            
+                            <div class="validation-card">
+                                <span class="validation-icon">⚡</span>
+                                <h3>Pragmatism</h3>
+                                <p><strong>Question:</strong> Do interventions based on this map lead to expected collaborative innovation outcomes?</p>
+                                <textarea class="variable-input" placeholder="Pilot Testing Results:
+• Network formation experiments
+• Digital platform trials
+• Collaborative innovation workshops
+• Technology-tradition integration pilots
+• Multi-stakeholder coordination initiatives
+
+Success Indicators: Participation rates, knowledge sharing frequency, income improvements, technology adoption, cooperative strengthening"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">🎪 Stakeholder Validation Workshop Template</div>
+                        <div class="workshop-template">
+                            <h3>🌍 Multi-Country Validation Workshop Series</h3>
+                            <p><strong>Format:</strong> 3 parallel workshops (Nigeria, Ghana, Senegal) | <strong>Duration:</strong> 2 days each | <strong>Participants:</strong> 30-50 per workshop</p>
+                            
+                            <div class="workshop-phase">
+                                <strong>Day 1, Session 1: System Map Presentation (90 min)</strong>
+                                <ul style="margin: 15px 0 15px 20px;">
+                                    <li>Present draft system map in local languages</li>
+                                    <li>Gather immediate reactions and recognition</li>
+                                    <li>Identify culturally relevant examples</li>
+                                    <li>Note missing variables and connections</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="workshop-phase">
+                                <strong>Day 1, Session 2: Variable Validation (120 min)</strong>
+                                <ul style="margin: 15px 0 15px 20px;">
+                                    <li>Small group validation of key variables</li>
+                                    <li>Local terminology and concept refinement</li>
+                                    <li>Priority ranking of system elements</li>
+                                    <li>Addition of context-specific variables</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="workshop-phase">
+                                <strong>Day 1, Session 3: Relationship Testing (90 min)</strong>
+                                <ul style="margin: 15px 0 15px 20px;">
+                                    <li>Review and validate causal connections</li>
+                                    <li>Test feedback loop accuracy with local examples</li>
+                                    <li>Adjust polarities based on local experience</li>
+                                    <li>Identify additional causal pathways</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="workshop-phase">
+                                <strong>Day 2, Session 1: Cultural Integration (120 min)</strong>
+                                <ul style="margin: 15px 0 15px 20px;">
+                                    <li>Incorporate traditional knowledge systems</li>
+                                    <li>Validate against Fulani herding practices</li>
+                                    <li>Ensure cultural sensitivity and respect</li>
+                                    <li>Integrate indigenous innovation examples</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="workshop-phase">
+                                <strong>Day 2, Session 2: Solution Co-Design (150 min)</strong>
+                                <ul style="margin: 15px 0 15px 20px;">
+                                    <li>Identify high-impact intervention points</li>
+                                    <li>Design culturally appropriate solutions</li>
+                                    <li>Plan collaborative innovation processes</li>
+                                    <li>Establish local implementation pathways</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cultural-integration">
+                        <h3>🌾 Traditional Knowledge Integration Protocol</h3>
+                        <p><strong>Fulani Herding Heritage Integration:</strong> Systematic inclusion of traditional pastoral knowledge systems</p>
+                        
+                        <div style="margin: 20px 0;">
+                            <strong>Traditional Collaboration Patterns:</strong>
+                            <textarea class="variable-input" placeholder="• Seasonal migration coordination mechanisms
+• Community resource sharing protocols
+• Conflict resolution and mediation systems
+• Inter-generational knowledge transfer practices
+• Environmental stewardship approaches"></textarea>
+                        </div>
+                        
+                        <div style="margin: 20px 0;">
+                            <strong>Indigenous Innovation Systems:</strong>
+                            <textarea class="variable-input" placeholder="• Traditional weather prediction methods
+• Adaptive grazing and farming techniques
+• Community-based seed and breed management
+• Local market and trade networks
+• Cultural preservation mechanisms"></textarea>
+                        </div>
+                        
+                        <div style="margin: 20px 0;">
+                            <strong>Integration Validation Questions:</strong>
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>How do traditional collaboration patterns inform modern network design?</li>
+                                <li>What indigenous knowledge can enhance digital platform functionality?</li>
+                                <li>How can cultural governance systems strengthen farmer cooperatives?</li>
+                                <li>What traditional innovation processes can be scaled digitally?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LEVERAGE PHASE -->
+                <div id="leverage" class="phase-content">
+                    <div class="phase-header">
+                        <h2>🎯 LEVERAGE: Strategic Intervention Design</h2>
+                        <p>Identify high-impact leverage points for collaborative innovation transformation</p>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">🚀 High-Impact Leverage Points</div>
+                        <div class="leverage-points">
+                            <div class="leverage-point">
+                                <div class="leverage-content">
+                                    <h3>🌐 Collaborative Innovation Networks</h3>
+                                    <p><strong>Intervention Strategy:</strong> Create farmer-led innovation networks that systematically integrate digital tools with indigenous knowledge systems</p>
+                                    <p><strong>System Impact:</strong> Breaks isolation loops, enables knowledge synthesis, builds collective capacity</p>
+                                    <textarea class="variable-input" placeholder="Implementation Design:
+• Start with trusted community leaders and traditional governance structures
+• Use mobile technology to connect isolated farmers
+• Respect and integrate traditional knowledge systems
+• Create peer-to-peer learning mechanisms
+• Establish innovation challenges and competitions
+• Build digital-physical hybrid meeting spaces"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="leverage-point">
+                                <div class="leverage-content">
+                                    <h3>📱 Digital-Indigenous Knowledge Integration Platform</h3>
+                                    <p><strong>Intervention Strategy:</strong> Develop culturally-sensitive platforms that capture, validate, and share traditional agricultural knowledge digitally</p>
+                                    <p><strong>System Impact:</strong> Preserves valuable practices while enabling wider dissemination and continuous improvement</p>
+                                    <textarea class="variable-input" placeholder="Platform Features:
+• Local language support (Hausa, Twi, Wolof, French, English)
+• Visual and audio interfaces for low-literacy users
+• Community validation and rating systems
+• Integration with weather and market data
+• Traditional calendar and seasonal guidance
+• Success story sharing and peer recognition"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="leverage-point">
+                                <div class="leverage-content">
+                                    <h3>🤝 Multi-Stakeholder Coordination Hub</h3>
+                                    <p><strong>Intervention Strategy:</strong> Establish regional coordination mechanisms to align NGO, government, and private sector interventions</p>
+                                    <p><strong>System Impact:</strong> Reduces duplication, increases synergy, maximizes resource efficiency and impact</p>
+                                    <textarea class="variable-input" placeholder="Coordination Structure:
+• Regional agricultural innovation hubs (Nigeria, Ghana, Senegal)
+• Shared impact measurement frameworks
+• Collaborative funding and resource pooling
+• Joint program design and implementation
+• Knowledge sharing and learning networks
+• Policy advocacy and influence coordination"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="leverage-point">
+                                <div class="leverage-content">
+                                    <h3>💪 Cooperative Innovation Capacity Building</h3>
+                                    <p><strong>Intervention Strategy:</strong> Strengthen farmer cooperatives through collaborative innovation processes and digital tools</p>
+                                    <p><strong>System Impact:</strong> Increases bargaining power, enables resource pooling, builds social capital and collective efficacy</p>
+                                    <textarea class="variable-input" placeholder="Capacity Building Components:
+• Leadership development with traditional and modern skills
+• Financial literacy and cooperative management training
+• Technology adoption and digital skills development
+• Market linkage and value chain integration support
+• Conflict resolution and governance strengthening
+• Innovation project management capabilities"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-section">
+                        <div class="template-title">📅 Implementation Roadmap</div>
+                        <div class="variables-matrix">
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Phase 1: Foundation Building (Months 1-8)</div>
+                                <textarea class="variable-input" placeholder="• Stakeholder mapping and engagement across 3 countries
+• Technology infrastructure assessment and upgrade planning
+• Community leader identification and relationship building
+• Pilot site selection using cultural and agricultural criteria
+• Traditional knowledge documentation and validation
+• Partnership agreements with local organizations
+• Baseline data collection and measurement system setup"></textarea>
+                            </div>
+                            
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Phase 2: Pilot Implementation (Months 9-20)</div>
+                                <textarea class="variable-input" placeholder="• Launch innovation networks in 3 communities per country (9 total)
+• Develop and test digital-indigenous integration platforms
+• Train farmer facilitators and community champions
+• Implement collaborative innovation workshops and challenges
+• Monitor participation, engagement, and early outcomes
+• Iterate and refine approaches based on community feedback
+• Document successful practices and lessons learned"></textarea>
+                            </div>
+                            
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Phase 3: Scale and Institutionalize (Months 21-36)</div>
+                                <textarea class="variable-input" placeholder="• Expand networks to 15 additional communities per country
+• Integrate platforms with government extension services
+• Develop sustainability and local ownership mechanisms
+• Create train-the-trainer programs for local organizations
+• Establish policy recommendations and advocacy agenda
+• Launch research publication and knowledge sharing initiatives
+• Plan for long-term impact measurement and evaluation"></textarea>
+                            </div>
+                            
+                            <div class="variable-cluster">
+                                <div class="cluster-title">Success Indicators & Measurement</div>
+                                <textarea class="variable-input" placeholder="Quantitative Indicators:
+• Number of active innovation networks and participants
+• Frequency of knowledge sharing and collaboration events
+• Technology adoption rates and digital skill improvements
+• Farmer income increases and livelihood improvements
+• Cooperative membership and effectiveness measures
+
+Qualitative Indicators:
+• Changes in farmer confidence and agency
+• Quality of traditional-modern knowledge integration
+• Strength of social networks and trust levels
+• Cultural appropriateness and respect for traditions
+• Sustainability of collaborative innovation processes"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="research-positioning">
+                        <h3>🎓 Research Positioning and Academic Contribution</h3>
+                        
+                        <div style="text-align: left; margin: 30px 0;">
+                            <h4>🔬 Theoretical Contributions</h4>
+                            <ul style="margin: 15px 0 15px 20px;">
+                                <li><strong>Systems Theory Application:</strong> Demonstrates SMA methodology effectiveness in complex agricultural development contexts</li>
+                                <li><strong>Innovation Network Theory:</strong> Advances understanding of collaborative innovation in resource-constrained environments</li>
+                                <li><strong>Cultural Integration Framework:</strong> Provides systematic approach to integrating indigenous and modern knowledge systems</li>
+                                <li><strong>Multi-Stakeholder Coordination:</strong> Offers practical model for development intervention alignment</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="text-align: left; margin: 30px 0;">
+                            <h4>🌍 Practical Impact</h4>
+                            <ul style="margin: 15px 0 15px 20px;">
+                                <li><strong>Development Practice:</strong> Actionable framework for NGOs and government agencies</li>
+                                <li><strong>Technology Design:</strong> Culturally-sensitive platform requirements for agricultural technology</li>
+                                <li><strong>Policy Implications:</strong> Evidence-based recommendations for agricultural transformation policies</li>
+                                <li><strong>Scaling Pathways:</strong> Replicable model for other regions and agricultural contexts</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="text-align: left; margin: 30px 0;">
+                            <h4>🏆 Research Excellence Positioning</h4>
+                            <ul style="margin: 15px 0 15px 20px;">
+                                <li><strong>Methodological Rigor:</strong> Systematic application of professional SMA methodology with multi-country validation</li>
+                                <li><strong>Cultural Authenticity:</strong> Integration of researcher's 30+ years farming experience and Fulani heritage</li>
+                                <li><strong>Practical Relevance:</strong> Addresses critical challenge affecting 80% of West African agricultural workforce</li>
+                                <li><strong>Innovation Potential:</strong> Novel approach to digital-traditional knowledge integration</li>
+                                <li><strong>Research Accelerator Readiness:</strong> Clear pathway for scaling impact and academic influence</li>
+                            </ul>
+                        </div>
+                        
+                        <button class="btn" onclick="generateResearchProposal()">Generate Research Proposal</button>
+                        <button class="btn" onclick="exportFullFramework()">Export Complete Framework</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        function copyFullCode() {
-            // The complete HTML code would be copied here
-            const fullCode = `<!-- The complete system mapping tool code would be here -->
-<!DOCTYPE html>
-<html lang="en">
-<!-- Full artifact code from previous response -->
-</html>`;
+        // Phase navigation functionality
+        function switchPhase(phase) {
+            // Hide all phase content
+            document.querySelectorAll('.phase-content').forEach(content => {
+                content.classList.remove('active');
+            });
             
-            navigator.clipboard.writeText(fullCode).then(() => {
-                alert('✅ Code copied to clipboard!\n\nNow you can:\n1. Paste into any HTML file\n2. Upload to web hosting\n3. Use in CodePen/JSFiddle\n4. Deploy on Netlify/Vercel');
-            }).catch(err => {
-                console.error('Copy failed:', err);
-                // Fallback: show the code in a text area for manual copying
-                const textarea = document.createElement('textarea');
-                textarea.value = fullCode;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert('✅ Code copied to clipboard!');
+            // Remove active class from all nav links
+            document.querySelectorAll('.phase-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected phase content
+            document.getElementById(phase).classList.add('active');
+            
+            // Add active class to selected nav link
+            document.querySelector(`[data-phase="${phase}"]`).classList.add('active');
+            
+            // Update progress tracker
+            const phases = ['frame', 'explore', 'map', 'reflect', 'leverage'];
+            const currentIndex = phases.indexOf(phase);
+            document.getElementById('progressTracker').textContent = `Step ${currentIndex + 1}`;
+        }
+
+        // Add event listeners to navigation links
+        document.querySelectorAll('.phase-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const phase = link.getAttribute('data-phase');
+                switchPhase(phase);
+            });
+        });
+
+        // Auto-save functionality
+        function autoSave() {
+            const inputs = document.querySelectorAll('.variable-input');
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    // In a real implementation, save to backend or local storage
+                    console.log('Auto-saving input data...');
+                });
             });
         }
+
+        // Digital mapping integration
+        function launchDigitalMapping() {
+            alert('🗺️ Digital Mapping Integration\n\nThis would launch your preferred system mapping tool:\n\n• Kumu (recommended for complex networks)\n• Vensim (for system dynamics)\n• Draw.io (for simple diagrams)\n• Miro/Mural (for collaborative mapping)\n\nIntegrate with O\'Reilly Platform tools for advanced visualization.');
+        }
+
+        function exportSystemMap() {
+            alert('📊 Export System Map\n\nThis would export your system map in multiple formats:\n\n• PDF for academic presentations\n• PNG/SVG for documents\n• Interactive HTML for workshops\n• Data files for further analysis');
+        }
+
+        function generateResearchProposal() {
+            alert('📝 Research Proposal Generator\n\nThis would generate a comprehensive research proposal including:\n\n• Literature review framework\n• Methodology section\n• Expected contributions\n• Implementation timeline\n• Budget considerations\n• Risk mitigation strategies');
+        }
+
+        function exportFullFramework() {
+            alert('📋 Complete Framework Export\n\nThis would export your entire system mapping framework:\n\n• All phase templates\n• Workshop designs\n• Validation protocols\n• Implementation roadmap\n• Measurement frameworks\n• Academic positioning');
+        }
+
+        // Interactive enhancements
+        function addInteractivity() {
+            // Add hover effects to system nodes
+            document.querySelectorAll('.system-node').forEach(node => {
+                node.addEventListener('click', () => {
+                    const nodeName = node.textContent.trim();
+                    alert(`🔍 Deep Dive: ${nodeName}\n\nClick to explore:\n• Variable definition\n• Causal relationships\n• Measurement approaches\n• Intervention possibilities`);
+                });
+            });
+
+            // Add expansion functionality to clusters
+            document.querySelectorAll('.variable-cluster').forEach(cluster => {
+                cluster.addEventListener('dblclick', () => {
+                    cluster.style.gridColumn = cluster.style.gridColumn === 'span 2' ? 'auto' : 'span 2';
+                });
+            });
+        }
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            autoSave();
+            addInteractivity();
+            
+            // Set initial phase
+            switchPhase('frame');
+            
+            console.log('🌾 West African Farmer System Mapping Tool Initialized');
+            console.log('📚 Using System Mapping Academy Professional Methodology');
+            console.log('🎯 Ready for collaborative innovation network design');
+        });
     </script>
 </body>
 </html>
